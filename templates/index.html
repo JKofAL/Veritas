@@ -4,13 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проверка лабораторной</title>
+    <link rel="stylesheet" href="../src/css/style.css">
 </head>
 <body>
-    <h2>Загрузить лабораторную работу</h2>
+    <div class="title-main-list">
+        <h2 class="title-main">Загрузить лабораторную работу</h2>
+    </div>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="file">Файл .cpp:</label>
-        <input type="file" name="file" id="file">
-        <button type="submit">Отправить</button>
+        <div class="label-file-cpp">
+            <p style="text-align: center;">Файл .cpp:</p>
+        </div>
+
+        <div class="input-cell-div">
+            <div class="input-cell-div-p">
+                <p class="input-cell-p">+</p>
+            </div>
+            
+            <input type="file" name="file" id="file" onchange="updateFileName()" class="input-cell">
+        </div>
+
+        <!-- Новый блок для отображения имени файла -->
+        <div id="file-name-display" class="file-name-display">
+            <p>Файл не выбран</p>
+        </div>
+
+        <div class="button-upload-file">
+            <button type="submit" class="button-upload-file-bttn" disabled id="submit-btn">Отправить</button>
+        </div>
+
     </form>
+
+    <script>
+        function updateFileName() {
+            const fileInput = document.getElementById('file');
+            const fileNameDisplay = document.getElementById('file-name-display');
+            const submitButton = document.getElementById('submit-btn');
+
+            // Если выбран файл, отображаем его имя, иначе показываем "Файл не выбран"
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.innerHTML = `<p>Выбран файл: ${fileInput.files[0].name}</p>`;
+                submitButton.disabled = false; // Активируем кнопку
+            } else {
+                fileNameDisplay.innerHTML = '<p>Файл не выбран</p>';
+                submitButton.disabled = true; // Блокируем кнопку
+            }
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,104 @@
+@import url('results.css');
+
+@font-face {
+    font-family: 'Feature Mono'; /* Уникальное имя для шрифта */
+    src: url('../fonts/FeatureMono.ttf') format('truetype'); /* Путь к файлу шрифта */
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    background-color: #212121;
+    color: #ececec;
+    font-family: "Feature Mono";
+    width: 100%;
+    height: 100%;
+}
+
+.title-main-list {
+    float: none;
+    width: auto;
+    height: auto;
+    /* margin: 10vh 0; */
+    padding: 10vh 0;
+}
+
+.title-main {
+    text-align: center;
+    font-size: 42px;
+}
+
+.label-file-cpp {
+    width: auto;
+    padding: 1vh;
+}
+
+
+.input-cell-div {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 15%;
+    border: 2px dashed #b4b4b4;
+    margin: 2vh auto 5vh auto;
+}
+
+.input-cell-div-p {
+    width: 10vw;
+    height: 10vw;
+    position: absolute;
+    font-size: 32px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-cell-p {
+    opacity: .7;
+}
+
+
+.input-cell {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+
+.file-name-display {
+    text-align: center;
+}
+
+
+.button-upload-file {
+    width: 20vw;
+    height: 7vh;
+    border-radius: 15px;
+    background-color: #2f2f2f;
+    margin: 10vh auto;
+}
+
+.button-upload-file-bttn {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background-color: #007BFF;
+    color: antiquewhite;
+    font-size: 24px;
+    font-family: "Feature Mono";
+}
+
+.button-upload-file-bttn:hover {
+    background-color: #0056b3;
+}

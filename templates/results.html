@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результат проверки</title>
+    <link rel="stylesheet" href="../src/css/style.css">
+</head>
+<body>
+    <div class="result-container-global">
+        <div class="result-container">
+            <h1 class="result-title">Результат проверки</h1>
+            
+            <div class="result-status">
+                <p><strong>Статус:</strong> {{ status }}</p>
+            </div>
+
+            <div class="result-message">
+                <p><strong>Сообщение:</strong> {{ message }}</p>
+            </div>
+
+            {% if output %}
+            <div class="result-output">
+                <p><strong>Вывод программы:</strong></p>
+                <pre>{{ output }}</pre>
+            </div>
+            {% endif %}
+
+            {% if expected_output %}
+            <div class="result-expected">
+                <p><strong>Ожидаемый результат:</strong></p>
+                <pre>{{ expected_output }}</pre>
+            </div>
+            {% endif %}
+
+            <div class="back-button">
+                <a href="/" class="button">Назад</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

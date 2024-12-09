@@ -2,7 +2,7 @@ import os
 import subprocess
 from flask import Flask, request, jsonify, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='src')
 
 # Папка для загрузки файлов и хранения результатов
 UPLOAD_FOLDER = './uploads'
@@ -21,14 +21,14 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
-        return jsonify({"status": "ФАЙЛ", "error": "Файл не загружен"}), 400
+        return render_template('results.html', status="Ошибка", message="Файл не загружен", output="")
 
     file = request.files['file']
     if file.filename == '':
-        return jsonify({"status": "ФАЙЛ", "error": "Файл не выбран"}), 400
+        return render_template('results.html', status="Ошибка", message="Файл не выбран", output="")
 
     if not file.filename.endswith(".cpp"):
-        return jsonify({"status": "ФАЙЛ", "error": "Файл должен быть .cpp"}), 400
+        return render_template('results.html', status="Ошибка", message="Файл должен быть .cpp", output="")
 
     # Сохраняем файл
     file_path = os.path.join(UPLOAD_FOLDER, file.filename)
@@ -41,20 +41,21 @@ def upload_file():
     try:
         subprocess.run(compile_command, shell=True, check=True, stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
-        return jsonify({"status": "ФАЙЛ", "error": "Ошибка компиляции", "details": e.stderr.decode('utf-8', errors='replace')}), 400
+        error_message = e.stderr.decode('utf-8', errors='replace')
+        return render_template('results.html', status="Ошибка", message="Ошибка компиляции", output=error_message)
 
     # Выполнение программы с входными данными
     with open(TEST_INPUT, "r") as input_file:
         try:
             result = subprocess.run(executable_path, stdin=input_file, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
         except subprocess.TimeoutExpired:
-            return jsonify({"status": "ФАЙЛ", "error": "Программа выполнялась слишком долго"}), 400
+            return render_template('results.html', status="Ошибка", message="Программа выполнялась слишком долго", output="")
 
     # Чтение и сравнение результата
     try:
         actual_output = result.stdout.decode('utf-8', errors='replace').strip()
     except UnicodeDecodeError as e:
-        return jsonify({"status": "ФАЙЛ", "error": f"Ошибка декодирования вывода: {str(e)}"}), 400
+        return render_template('results.html', status="Ошибка", message=f"Ошибка декодирования вывода: {str(e)}", output="")
 
     # Читаем ожидаемый результат из test_output.txt
     with open(TEST_OUTPUT, "r") as expected_output_file:
@@ -62,9 +63,10 @@ def upload_file():
 
     # Сравниваем фактический и ожидаемый результаты
     if actual_output == expected_output:
-        return jsonify({"status": "УСПЕХ", "message": "Вывод совпадает с ожидаемым", "output": actual_output}), 200
+        return render_template('results.html', status="УСПЕХ", message="Вывод совпадает с ожидаемым", output=actual_output)
     else:
-        return jsonify({"status": "НЕУДАЧА", "message": "Вывод не совпадает с ожидаемым", "actual_output": actual_output, "expected_output": expected_output}), 200
+        return render_template('results.html', status="НЕУДАЧА", message="Вывод не совпадает с ожидаемым", output=actual_output, expected_output=expected_output)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
