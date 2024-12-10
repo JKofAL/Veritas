@@ -1,6 +1,7 @@
 import os
 import subprocess
 from flask import Flask, request, jsonify, render_template
+import re
 
 app = Flask(__name__, static_folder='src')
 
@@ -22,6 +23,15 @@ def index():
 def upload_file():
     if 'file' not in request.files:
         return render_template('results.html', status="Ошибка", message="Файл не загружен", output="")
+    
+    # -----------------------------------------------------------------------
+    # if subprocess.run("g++ --version", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode != 0:
+    #     raise EnvironmentError("Компилятор g++ не установлен или недоступен в PATH.")
+
+    # насчёт 2-ух строк выше у меня вопросы, зачем это делать, если на сервере, на котором держится проект, будет
+    # предустановлен g++, и такая ошибка просто не может быть, а если и может, то проект ляжет
+    # тем более у нас есть попытка обработать файл ниже (try except)
+    # -----------------------------------------------------------------------
 
     file = request.files['file']
     if file.filename == '':
@@ -53,13 +63,29 @@ def upload_file():
 
     # Чтение и сравнение результата
     try:
-        actual_output = result.stdout.decode('utf-8', errors='replace').strip()
+        actual_output = result.stdout.decode('utf-8', errors='replace').strip() # число, которое выдала программа
+        # -----------------------------------------------------------------------
+        # -----------------------------------------------------------------------
+        # Извлечение числа из вывода
+        match = re.search(r'\d+$', actual_output)
+        if match:
+            extracted_output = match.group()  # Здесь будет "22" или другое число
+        else:
+            extracted_output = "Ответ не найден"
+        # -----------------------------------------------------------------------
+        # -----------------------------------------------------------------------
+        # не понял что за переменная (куда мне её выводить, у меня есть actual_output и expected_output)
+        # вывод программы и ожидаемый вывод
+        # пока что нигде не юзается (понял, что сохраняется число в виде ответа программы,
+        # я так понимаю это для того, чтобы игнорировать текст в output)
+        # -----------------------------------------------------------------------
+        # -----------------------------------------------------------------------
     except UnicodeDecodeError as e:
         return render_template('results.html', status="Ошибка", message=f"Ошибка декодирования вывода: {str(e)}", output="")
 
     # Читаем ожидаемый результат из test_output.txt
     with open(TEST_OUTPUT, "r") as expected_output_file:
-        expected_output = expected_output_file.read().strip()
+        expected_output = expected_output_file.read().strip() # ожидаемое число
 
     # Сравниваем фактический и ожидаемый результаты
     if actual_output == expected_output:
@@ -70,3 +96,4 @@ def upload_file():
 
 if __name__ == '__main__':
     app.run(debug=True)
+

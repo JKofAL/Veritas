@@ -97,8 +97,20 @@ body {
     color: antiquewhite;
     font-size: 24px;
     font-family: "Feature Mono";
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    border: none;
 }
 
 .button-upload-file-bttn:hover {
+    cursor: pointer;
+    background-color: #0056b3;
+}
+
+.button-upload-file-bttn:disabled:hover {
+    cursor: not-allowed;
+}
+
+.button-upload-file-bttn:disabled {
     background-color: #0056b3;
 }
