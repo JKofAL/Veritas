@@ -1,30 +1,9 @@
-@import url('results.css');
+@import url("shablon.css");
 
-@font-face {
-    font-family: 'Feature Mono'; /* Уникальное имя для шрифта */
-    src: url('../fonts/FeatureMono.ttf') format('truetype'); /* Путь к файлу шрифта */
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    width: 100vw;
-    height: 100vh;
-}
-
-body {
-    background-color: #212121;
-    color: #ececec;
-    font-family: "Feature Mono";
-    width: 100%;
-    height: 100%;
-}
+/* ----------------------------------------------- */
+/* главная страница */
+/* кастомизация заголовка вверху страницы */
+/* ----------------------------------------------- */
 
 .title-main-list {
     float: none;
@@ -39,11 +18,15 @@ body {
     font-size: 42px;
 }
 
+/* ----------------------------------------------- */
+/* ----------------------------------------------- */
+/* кастомизация поля с загрузкой файла */
+/* ----------------------------------------------- */
+
 .label-file-cpp {
     width: auto;
     padding: 1vh;
 }
-
 
 .input-cell-div {
     width: 10vw;
@@ -68,18 +51,25 @@ body {
     opacity: .7;
 }
 
-
 .input-cell {
     width: 100%;
     height: 100%;
     opacity: 0;
 }
 
+/* ----------------------------------------------- */
+/* ----------------------------------------------- */
+/* отображение имени загруженного файла */
+/* ----------------------------------------------- */
 
 .file-name-display {
     text-align: center;
 }
 
+/* ----------------------------------------------- */
+/* ----------------------------------------------- */
+/* кнопка загрузки файла для проверки */
+/* ----------------------------------------------- */
 
 .button-upload-file {
     width: 20vw;
@@ -102,15 +92,21 @@ body {
     border: none;
 }
 
+/* эффект при наведении мыши на кнопку */
 .button-upload-file-bttn:hover {
     cursor: pointer;
     background-color: #0056b3;
 }
 
+/* эффект при наведении мыши на неактивную кнопку */
 .button-upload-file-bttn:disabled:hover {
     cursor: not-allowed;
 }
 
+/* кастомизация неактивной кнопки */
 .button-upload-file-bttn:disabled {
     background-color: #0056b3;
 }
+
+/* ----------------------------------------------- */
+

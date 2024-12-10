@@ -2,6 +2,7 @@ import os
 import subprocess
 from flask import Flask, request, jsonify, render_template
 import re
+import sqlite3
 
 app = Flask(__name__, static_folder='src')
 
@@ -18,6 +19,40 @@ TEST_OUTPUT = "test_output.txt" # Файл с ожидаемым результ�
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+# более подробно, что находится внутри бд, можно в файле scripts.py
+@app.route('/admin')
+def admin_panel():
+    # админ панель доступна по ссылке localhost:5000/admin
+    # сделана для проверки для преподавателя
+    with sqlite3.connect("VeritasDB.db") as conn:
+        cur = conn.cursor()
+        # устанавливаем соединение с БД и создаём курсор
+
+        # создаём массив данных, которые достанем
+        dataForm = []
+
+        # делаем запрос для БД "ВЫБРАТЬ всё ИЗ ТАБЛИЦЫ students"
+        task = """
+
+            SELECT * FROM students
+
+        """
+
+        # задаём запрос для курсора и вытаскиваем всю инфу методом fetchall
+        cur.execute(task)
+        students_results = cur.fetchall()
+        for elem in students_results:
+            # форматирую так, как мне будет удобнее брать информацию
+            dataForm.append({"name": elem[1], "vusGroup": elem[2], "lbs": elem[3].replace("1", "зачёт", 7).replace("0", "незач", 7).split(" ")})
+            # dataForm.append([elem[1], elem[2], elem[3].replace("1", "зачтено", 7).replace("0", "незачтено", 7).split(" ")])
+        # print(dataForm)
+    try:
+        return render_template('admin.html', dataForm=dataForm)
+    except NameError:
+        return render_template('admin.html', dataForm=[]) # на случай если бд полетит и коннекта не будет
+
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

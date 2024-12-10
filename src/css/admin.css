@@ -1,0 +1,58 @@
+@import url("shablon.css");
+
+/* ----------------------------------------------- */
+/* кастомизация страницы администратора */
+/* ----------------------------------------------- */
+
+/* заголовок */
+.admin-title-div {
+    width: auto;
+    height: auto;
+    padding: 10vh 0;
+}
+
+.admin-title {
+    text-align: center;
+}
+
+/* таблица с результатами */
+.results-table-div {
+    background-color: #171717;
+    width: 50vw;
+    height: 60vh;
+    border-radius: 15px;
+    margin: auto;
+    padding: 5vh 5vw;
+}
+
+.table-container {
+    width: 100%;
+    height: 55vh;
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+    display: block;
+    margin: auto;
+}
+
+/* Стили для таблицы */
+table {
+    border-collapse: collapse; /* Убираем промежутки между ячейками */
+    width: 100%; /* Таблица растягивается по ширине контейнера */
+    max-width: 100%; /* Ограничение ширины */
+}
+
+table th, table td {
+    border: 1px solid #ccc; /* Границы ячеек */
+    padding: 8px; /* Внутренние отступы в ячейках */
+    text-align: left; /* Выравнивание текста влево */
+}
+
+table th {
+    position: sticky;
+    z-index: 1;
+    top: -.5px;
+    background-color: #2f2f2f; /* Фон для заголовков таблицы */
+    border: 1px solid #ccc;
+    box-shadow: inset 0 -1px #ccc, inset 0 1px #ccc; /* Добавляем нижнюю границу для визуального совпадения */
+}
+

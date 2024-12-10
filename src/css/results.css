@@ -1,3 +1,10 @@
+@import url("shablon.css");
+
+/* ----------------------------------------------- */
+/* кастомизация страницы upload */
+/* ----------------------------------------------- */
+
+/* контейнер, в котором находится вся информация */
 .result-container-global {
     width: 100%;
     height: 100%;
@@ -17,17 +24,23 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* ----------------------------------------------- */
+/* ----------------------------------------------- */
+/* контент контейнера */
+/* оглавление результата */
 .result-title {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
 }
 
+/* надписи описания результатов */
 .result-status, .result-message, .result-output {
     margin-bottom: 15px;
     font-size: 16px;
 }
 
+/* надписи полученных результатов */
 .result-output pre {
     background-color: #292929;
     padding: 10px;
@@ -38,6 +51,7 @@
     margin: 2vw 0;
 }
 
+/* кнопка возвращения на главную страницу */
 .back-button {
     text-align: center;
 }
@@ -52,6 +66,10 @@
     transition: background-color 0.3s ease;
 }
 
+/* эффект кнопки при наведении курсора на неё */
 .back-button .button:hover {
     background-color: #0056b3;
 }
+
+/* ----------------------------------------------- */
+
