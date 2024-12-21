@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="../src/css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Регистрация</h1>
+        <form action="/reg" method="POST" autocomplete="off">
+            <label for="username">Логин<span class="error-message {{'visible' if error_message else ''}}">{{ error_message }}</span></label>
+            <input type="text" id="login" name="login" placeholder="Введите логин" required>
+
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+
+            <label for="key">Ключ доступа <span class="tooltip" data-tooltip="Запросите ключ у преподавателя.">?</span></label>
+            <input type="text" id="key" name="key" placeholder="Введите ключ" required>
+
+            <button type="submit">Зарегестрироваться</button>
+        </form>
+        <div class="footer">
+            <p>Уже есть аккаунт? <a href="/login">Войти</a></p>
+        </div>
+    </div>
+</body>
+</html>

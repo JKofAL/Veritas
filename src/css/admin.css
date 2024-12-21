@@ -8,11 +8,83 @@
 .admin-title-div {
     width: auto;
     height: auto;
-    padding: 10vh 0;
+    padding: 3vh 0 0 0;
 }
 
 .admin-title {
     text-align: center;
+}
+
+/* Раздел для генерации ключей */
+.key-generation-div {
+    background-color: #333;
+    color: #fff;
+    width: 60vw;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.key-generation-div h2 {
+    text-align: center;
+}
+
+.key-generation-div label {
+    font-size: 1rem;
+    margin-right: 1rem;
+}
+
+.key-generation-div input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.generate-btn {
+    padding: 0.7rem 1.2rem;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.generate-btn:hover {
+    background-color: #45a049;
+}
+
+.generated-keys {
+    margin-top: 2rem;
+}
+
+.generated-keys h3 {
+    font-size: 1.2rem;
+}
+
+#key-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#key-list li {
+    background-color: #222;
+    color: #ddd;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+    display: flex;
+}
+
+#key-list span {
+    width: 100%;
+    text-align: right;
+}
+
+.delete-btn {
+    background-color: rgba(1, 1, 1, 0);
+    border: none;
 }
 
 /* таблица с результатами */
@@ -21,38 +93,49 @@
     width: 50vw;
     height: 60vh;
     border-radius: 15px;
-    margin: auto;
+    margin: 2rem auto;
     padding: 5vh 5vw;
 }
 
 .table-container {
     width: 100%;
     height: 55vh;
-    overflow-y: auto; /* Включаем вертикальную прокрутку */
-    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+    overflow-y: auto;
+    overflow-x: hidden;
     display: block;
     margin: auto;
 }
 
 /* Стили для таблицы */
 table {
-    border-collapse: collapse; /* Убираем промежутки между ячейками */
-    width: 100%; /* Таблица растягивается по ширине контейнера */
-    max-width: 100%; /* Ограничение ширины */
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
 }
 
 table th, table td {
-    border: 1px solid #ccc; /* Границы ячеек */
-    padding: 8px; /* Внутренние отступы в ячейках */
-    text-align: left; /* Выравнивание текста влево */
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+table tr {
+    border-bottom: 3px solid #ccc;
+}
+
+.lab-res.true {
+    color: #45a049;
+}
+
+.lab-res.false {
+    color: firebrick;
 }
 
 table th {
     position: sticky;
     z-index: 1;
     top: -.5px;
-    background-color: #2f2f2f; /* Фон для заголовков таблицы */
+    background-color: #2f2f2f;
     border: 1px solid #ccc;
-    box-shadow: inset 0 -1px #ccc, inset 0 1px #ccc; /* Добавляем нижнюю границу для визуального совпадения */
+    box-shadow: inset 0 -1px #ccc, inset 0 1px #ccc;
 }
-

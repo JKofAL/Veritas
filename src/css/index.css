@@ -110,3 +110,11 @@
 
 /* ----------------------------------------------- */
 
+.login-btn {
+    text-decoration: none;
+    color: white;
+    position: absolute;
+    top: 3%;
+    right: 5%;
+}
+

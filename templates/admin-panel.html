@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель админа</title>
+    <link rel="stylesheet" href="../src/css/admin.css">
+</head>
+<body>
+    <div class="admin-title-div">
+        <h1 class="admin-title">Панель администратора</h1>
+    </div>
+    
+    <!-- Раздел для генерации ключей -->
+    <div class="key-generation-div">
+        <h2>Генерация ключей для регистрации</h2>
+        <form method="POST" action="/admin-panel">
+            <label for="key-count">Введите количество ключей:</label>
+            <input type="number" id="key-count" name="key_count" min="1" max="50" required>
+            <button type="submit" class="generate-btn">Сгенерировать</button>
+        </form>
+        
+        <div class="generated-keys">
+            <h3>Рабочие ключи:</h3>
+            <ul id="key-list" class="key-list">
+                {% if generated_keys %}
+                    {% for key in generated_keys %}
+                        <li>{{ key }}
+                            <span>
+                                <form action="{{ url_for('delete_key') }}" method="post" class="delete-btn-form">
+                                    <input type="hidden" name="key-to-delete" value="{{ key }}">
+                                    <button type="submit" class="delete-btn">
+                                        <b>удалить</b>
+                                    </button>
+                                </form>
+                            </span>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Таблица с результатами -->
+    <div class="results-table-div">
+        <h1>Результаты студентов</h1>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Фамилия И.О.</th>
+                        <th>Группа</th>
+                        <th>ЛБ 1</th>
+                        <th>ЛБ 2</th>
+                        <th>ЛБ 3</th>
+                        <th>ЛБ 4</th>
+                        <th>ЛБ 5</th>
+                        <th>ЛБ 6</th>
+                        <th>ЛБ 7</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in dataForm %}
+                        <tr>
+                            <td>{{ row.name }}</td>
+                            <td>{{ row.vusGroup }}</td>
+                            {% for lab in row.lbs %}
+                                <td class="lab-res {{ 'true' if lab == 'зачёт' else 'false' }}">{{ lab }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

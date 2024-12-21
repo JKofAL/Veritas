@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="../src/css/index.css">
 </head>
 <body>
+    {% if user == None %}
+        <a href="/login" class="login-btn">
+            <span>Вход</span>
+        </a>
+    {% else %}
+        <a href="#" class="login-btn">
+            <span>{{ user }}</span>
+        </a>
+    {% endif %}
     <div class="title-main-list">
         <h2 class="title-main">Загрузить лабораторную работу</h2>
     </div>

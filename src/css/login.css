@@ -1,0 +1,105 @@
+@import url("shablon.css");
+
+/* ----------------------------------------------- */
+/* кастомизация страницы login */
+/* ----------------------------------------------- */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-container {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.login-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.login-container input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+}
+
+.login-container .footer {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.login-container .footer a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-container .footer a:hover {
+    text-decoration: underline;
+}
+
+.login-container .tooltip {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-container .tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -25px;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+
+.error-message {
+    color: red;
+    display: none;
+}
+
+
+.error-message.visible {
+    display: block;
+}
