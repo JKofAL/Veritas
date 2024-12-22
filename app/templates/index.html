@@ -7,55 +7,157 @@
     <link rel="stylesheet" href="../src/css/index.css">
 </head>
 <body>
+    <!-- отображение имени пользователя -->
     {% if user == None %}
+    <!-- ссылка на логин, если пользователь не зашёл -->
         <a href="/login" class="login-btn">
-            <span>Вход</span>
+            <span id="username">Вход</span>
         </a>
     {% else %}
+    <!-- заглушка, если пользователь зашёл -->
         <a href="#" class="login-btn">
-            <span>{{ user }}</span>
+            <span id="username">{{ user }}</span>
         </a>
     {% endif %}
+
+    <!-- ОСНОВНОЙ БЛОК -->
+    <!-- ОСНОВНОЙ БЛОК -->
+    <!-- ОСНОВНОЙ БЛОК -->
     <div class="title-main-list">
         <h2 class="title-main">Загрузить лабораторную работу</h2>
     </div>
+    
+    <!-- Добавляем переключатель языков -->
+    <div class="language-switch">
+        <button class="lang-btn active" id="cpp-btn" onclick="setLanguage('cpp')">
+            <img src="../src/images/cpp-icon.png" alt="C++" class="lang-icon">
+        </button>
+        <button class="lang-btn" id="python-btn" onclick="setLanguage('python')">
+            <img src="../src/images/python-icon.png" alt="Python" class="lang-icon">
+        </button>
+    </div>
+    
+    <!-- добавляем форму загрузки файлов -->
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <div class="label-file-cpp">
-            <p style="text-align: center;">Файл .cpp:</p>
-        </div>
-
-        <div class="input-cell-div">
-            <div class="input-cell-div-p">
-                <p class="input-cell-p">+</p>
+        <!-- Секция для C++ -->
+        <div id="cpp-section" class="lab-section">
+            {% for file_input in range(7) %}
+            <div class="input-cells">
+                <!-- ячейка загрузки файла -->
+                <div class="input-cell-div">
+                    <!-- отображение внутри ячейки -->
+                    <div class="input-cell-div-p">
+                        <image 
+                            class="input-cell-p" 
+                            id="input-cell-ico-cpp-{{ file_input + 1 }}" 
+                            src="../src/images/upload-file.png" />
+                    </div>
+                    
+                    <input 
+                        type="file" 
+                        name="file-cpp-{{ file_input + 1 }}" 
+                        id="file-cpp-{{ file_input + 1 }}" 
+                        data-language="cpp"
+                        data-index="{{ file_input + 1 }}"
+                        class="input-cell">
+                </div>
+                <!-- отображение имени файла -->
+                <div id="file-name-display-cpp-{{ file_input + 1 }}" class="file-name-display">
+                    <p>ЛР №{{ file_input + 1 }}</p>
+                </div>
             </div>
-            
-            <input type="file" name="file" id="file" onchange="updateFileName()" class="input-cell">
+            {% endfor %}
         </div>
 
-        <!-- Новый блок для отображения имени файла -->
-        <div id="file-name-display" class="file-name-display">
-            <p>Файл не выбран</p>
+        <!-- Секция для Python -->
+        <div id="python-section" class="lab-section hidden">
+            {% for file_input in range(7) %}
+            <div class="input-cells">
+                <!-- ячейка загрузки файла -->
+                <div class="input-cell-div">
+                    <!-- отображение внутри ячейки -->
+                    <div class="input-cell-div-p">
+                        <image 
+                            class="input-cell-p" 
+                            id="input-cell-ico-py-{{ file_input + 1 }}" 
+                            src="../src/images/upload-file.png" />
+                    </div>
+                    
+                    <input 
+                        type="file" 
+                        name="file-py-{{ file_input + 1 }}" 
+                        id="file-py-{{ file_input + 1 }}" 
+                        data-language="py"
+                        data-index="{{ file_input + 1 }}"
+                        class="input-cell">
+                </div>
+                <!-- отображение имени файла -->
+                <div id="file-name-display-py-{{ file_input + 1 }}" class="file-name-display">
+                    <p>ЛР №{{ file_input + 1 }}</p>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-
+        <!-- кнопка загрузки файлов -->
         <div class="button-upload-file">
             <button type="submit" class="button-upload-file-bttn" id="submit-btn" disabled>Отправить</button>
         </div>
-
     </form>
 
     <script>
-        function updateFileName() {
-            const fileInput = document.getElementById('file');
-            const fileNameDisplay = document.getElementById('file-name-display');
-            const submitButton = document.getElementById('submit-btn');
+       function setLanguage(language) {
+            // блоки с полями загрузки файлов
+            const cppSection = document.getElementById('cpp-section');
+            const pythonSection = document.getElementById('python-section');
+            
+            // кнопки переключения языков
+            const cppBtn = document.getElementById('cpp-btn');
+            const pythonBtn = document.getElementById('python-btn');
 
-            // Если выбран файл, отображаем его имя, иначе показываем "Файл не выбран"
-            if (fileInput.files.length > 0) {
-                fileNameDisplay.innerHTML = `<p>Выбран файл: ${fileInput.files[0].name}</p>`;
-                submitButton.disabled = false; // Активируем кнопку
+            // активирует кнопки и инпут поля выбранного языка,
+            // блокирует инпут поля и скрывает кнопки другого языка
+            if (language === 'cpp') {
+                cppSection.classList.remove('hidden');
+                pythonSection.classList.add('hidden');
+                cppBtn.classList.add('active');
+                pythonBtn.classList.remove('active');
+            } else if (language === 'python') {
+                pythonSection.classList.remove('hidden');
+                cppSection.classList.add('hidden');
+                pythonBtn.classList.add('active');
+                cppBtn.classList.remove('active');
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const filesInput = document.querySelectorAll('.input-cell')
+            
+
+            filesInput.forEach(input => {
+                input.addEventListener('change', (event) => {
+                    const language = event.target.getAttribute('data-language')
+                    const index = event.target.getAttribute('data-index')
+
+
+                    updateFilename(language, index)
+                })
+            })
+        })
+
+
+        function updateFilename(lang, index) {
+            const fileInput = document.getElementById(`file-${lang}-${index}`)
+            const icon = document.getElementById(`input-cell-ico-${lang}-${index}`)
+            const filename = document.getElementById(`file-name-display-${lang}-${index}`)
+
+            if (fileInput.files.length > 0){
+                icon.src = '../src/images/file-uploaded.png'
+                filename.textContent = `${fileInput.files[0].name}`
             } else {
-                fileNameDisplay.innerHTML = '<p>Файл не выбран</p>';
-                submitButton.disabled = true; // Блокируем кнопку
+                icon.src = '../src/images/upload-file.png'
+                filename.textContent = `ЛБ №${index}`
             }
         }
     </script>
