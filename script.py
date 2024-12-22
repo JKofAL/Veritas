@@ -1,5 +1,17 @@
 import sqlite3
 
+# файл создан исключительно для разовых использований функции обращения к базе данных
+# для разовых созданий или записей в базу данных новых данных
+# файл нужен на этап разработки и отладки, чтобы не тратить время на повторные запросы
+# и тестовые записи в таблицу, здесь приведены почти все команды,
+# которые использовались для базы данных во время разработки проекта
+
+
+# вчитываться и разбираться в коде не обязательно, вся визуальная состовляющая кода этого файла
+# никак не учитывается, за помощью в использовании скрипта стоит обратиться к автору кода
+# @Puhon
+
+
 with sqlite3.connect('VeritasDB.db') as conn:
     cursor = conn.cursor()
 
@@ -26,23 +38,25 @@ with sqlite3.connect('VeritasDB.db') as conn:
         CREATE TABLE IF NOT EXISTS verifyed_users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             login TEXT NOT NULL,
-            password TEXT NOT NULL
+            group_num TEXT NOT NULL,
+            password TEXT NOT NULL,
+            rating TEXT NOT NULL
         )
     """
 
-    create_table = """
-        CREATE TABLE IF NOT EXISTS generated_keys (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            key TEXT NOT NULL
-        )
-    """
+    # create_table = """
+    #     CREATE TABLE IF NOT EXISTS generated_keys (
+    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
+    #         key TEXT NOT NULL
+    #     )
+    # """
 
-    create_table = """
-        CREATE TABLE IF NOT EXISTS generated_keys (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            key TEXT NOT NULL
-        )
-    """
+    # create_table = """
+    #     CREATE TABLE IF NOT EXISTS generated_keys (
+    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
+    #         key TEXT NOT NULL
+    #     )
+    # """
 
 
 
@@ -52,10 +66,10 @@ with sqlite3.connect('VeritasDB.db') as conn:
     add_info = """
         INSERT INTO generated_keys (key) VALUES (?)
     """ # эта строка нужна для добавления инфы в таблицу
-    # command = create_table
-    command = add_info
-    # cursor.execute(create_table)
-    cursor.execute(command, ("key",)) # добавляем инфу в таблицу
+    command = create_table
+    # command = add_info
+    cursor.execute(create_table)
+    # cursor.execute(command, ("key",)) # добавляем инфу в таблицу
     # 1 1 1 1 0 0 0 - это из 7 лаб какие зач какие нзач, потом сам форматирую это
 
     #-----------------------------------------------------------------------

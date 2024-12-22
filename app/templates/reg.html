@@ -11,7 +11,10 @@
         <h1>Регистрация</h1>
         <form action="/reg" method="POST" autocomplete="off">
             <label for="username">Логин<span class="error-message {{'visible' if error_message else ''}}">{{ error_message }}</span></label>
-            <input type="text" id="login" name="login" placeholder="Введите логин" required>
+            <input type="text" id="login" name="login" pattern="^[А-Яа-яЁё.]+$" title="Можно вводить только кириллицу и точку." placeholder="Введите логин" required>
+
+            <label for="group_num">Номер группы</label>
+            <input type="text" id="group_num" name="group_num" placeholder="Введите номер группы" required>
 
             <label for="password">Пароль</label>
             <input type="password" id="password" name="password" placeholder="Введите пароль" required>

@@ -19,9 +19,9 @@
 .key-generation-div {
     background-color: #333;
     color: #fff;
-    width: 60vw;
-    margin: 2rem auto;
-    padding: 2rem;
+    width: 50vw;
+    margin: auto;
+    padding: 1vh;
     border-radius: 10px;
 }
 
@@ -106,36 +106,33 @@
     margin: auto;
 }
 
-/* Стили для таблицы */
-table {
-    border-collapse: collapse;
+.table-container ul {
+    list-style-type: none;
+}
+
+.table-container li {
     width: 100%;
-    max-width: 100%;
+    height: 60px;
+    margin: 15px auto;
+    background-color: #171717;
 }
 
-table th, table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
+.table-container span {
+    display: block;
+    margin: 0 0 10px;
 }
 
-table tr {
-    border-bottom: 3px solid #ccc;
+.table-container p {
+    display: inline-block;
+    margin: 0 0 10px;
+    vertical-align: auto;
 }
 
-.lab-res.true {
-    color: #45a049;
-}
-
-.lab-res.false {
-    color: firebrick;
-}
-
-table th {
-    position: sticky;
-    z-index: 1;
-    top: -.5px;
-    background-color: #2f2f2f;
-    border: 1px solid #ccc;
-    box-shadow: inset 0 -1px #ccc, inset 0 1px #ccc;
+.max-progress {
+    width: 0%;
+    display: inline-block;
+    height: 3vh;
+    background-color: #45a049;
+    border-radius: 10px;
+    transition: width 2s ease-in-out;
 }
