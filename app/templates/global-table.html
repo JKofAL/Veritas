@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/css/profile.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="profile-div">
+        <h1>Общая рейтинговая таблица</h1>
+        <div class="container">
+            <div class="rate-table">
+                <ul>
+                    {% for row in dataForm %}
+                        <li>
+                            {% if row.username == username %}
+                                <h3 style="color: aquamarine; font-size: 24px;">{{ row.username }} | {{ row.group_num }}</h3>
+                            {% else %}
+                                <h3>{{ row.username }} | {{ row.group_num }}</h3>
+                            {% endif %}
+                                <div class="max-progress" data-rating="{{ row.procent }}" data-max_rating="{{ max_rating }}"></div>
+                            <p>{{ row.rating }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <h2><a href="/">вернуться на главную</a></h2>
+    </div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Получаем все элементы с классом "bar"
+            const bars = document.querySelectorAll('.max-progress');
+
+            // Обрабатываем каждый элемент
+            bars.forEach(bar => {
+                const maxNum = bar.getAttribute('data-max_rating');
+                const num = bar.getAttribute('data-rating');
+
+                let width = 0;
+
+                if (num == 0) {
+                    width = 2;
+                } else {
+                    // Рассчитываем ширину
+                    width = maxNum - (maxNum - num) - (maxNum - (maxNum - num))/8;
+                }
+                
+
+                // Устанавливаем ширину через стиль
+                setTimeout(() => {
+                    bar.style.width = width + '%';
+                }, 100);
+            });
+        });
+
+    </script>
+</body>
+</html>

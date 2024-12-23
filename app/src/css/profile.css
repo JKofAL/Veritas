@@ -1,0 +1,73 @@
+@import url("./shablon.css");
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-div {
+    width: 90vw;
+    height: 90vh;
+    border-radius: 20px;
+    background-color: #171717;
+    margin: auto auto;
+    display: block;
+}
+
+.profile-div h1 {
+    text-align: center;
+    margin: .5rem;
+}
+
+h2 {
+    margin: .8rem auto;
+    text-align: center;
+}
+
+.container {
+    width: 60%; /* Ширина контейнера */
+    max-height: 31rem; /* Фиксированная высота контейнера */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    scrollbar-width: none;
+    margin: auto;
+    display: block;
+    background-color: #2d2d2d;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    width: 100%;
+    height: 5rem;
+    margin: 15px auto;
+    background-color: #171717;
+    border-radius: 15px;
+    padding: 3px;
+}
+
+h3 {
+    display: block;
+    margin: 0 0 10px;
+    width: 100%;
+}
+
+p {
+    display: inline-block;
+    margin: 0 0 10px;
+    vertical-align: auto;
+}
+
+.max-progress {
+    width: 0%;
+    display: inline-block;
+    height: 3vh;
+    background-color: #45a049;
+    border-radius: 10px;
+    transition: width 2s ease-in-out;
+}
+

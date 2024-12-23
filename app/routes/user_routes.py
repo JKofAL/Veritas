@@ -1,5 +1,10 @@
 from flask import Blueprint, render_template, session, redirect, request
-from app.utils.db_utils import check_login, register_user
+from app.utils.db_utils import (
+    check_login,
+    register_user, 
+    get_users_info_for_profile,
+    get_keys_n_users_info
+)
 
 bp = Blueprint('user_routes', __name__)
 
@@ -9,7 +14,6 @@ def index():
     ''' Главная страница, на ней отображается статус входа в аккаунт, поля для загрузки 
     лабораторных и отправки на проверку '''
     user = session.get('user') # проверка входа в аккаунт
-    session['user'] = user # для корректной работы куки
     session['error_message'] = None # если во время логина была ошибка, после логина 
     # она уберётся, только если мы сами её уберём
     return render_template('index.html', user=user)
@@ -19,6 +23,7 @@ def index():
 def login_page():
     ''' форма логина пользователя '''
     error_message = session.get('error_message')
+    session['user'] = None
 
     if request.method == 'POST':
 
@@ -66,3 +71,21 @@ def reg_page():
             return redirect('/login')
 
     return render_template('reg.html', error_message=error_message)
+
+
+@bp.route('/profile', methods=["GET"])
+def profile_page():
+    '''отображение профиля'''
+    res = get_users_info_for_profile(session.get('user'))
+    dataForm = res[0]
+    group_num = res[1]
+    return render_template('profile.html', username=session.get('user'), dataForm=dataForm, group_num=group_num)
+
+
+@bp.route('/global-table', methods=["GET"])
+def global_tabel():
+    '''отображение глобальной таблицы'''
+    keys, max_rating, dataForm = get_keys_n_users_info()
+
+    return render_template("global-table.html", dataForm=dataForm, max_rating=max_rating, username=session.get('user'))
+    

@@ -40,7 +40,11 @@ with sqlite3.connect('VeritasDB.db') as conn:
             login TEXT NOT NULL,
             group_num TEXT NOT NULL,
             password TEXT NOT NULL,
-            rating TEXT NOT NULL
+            lab1 FLOAT DEFAULT 0.0,
+            lab2 FLOAT DEFAULT 0.0,
+            lab3 FLOAT DEFAULT 0.0,
+            lab4 FLOAT DEFAULT 0.0,
+            rating FLOAT DEFAULT 0.0
         )
     """
 

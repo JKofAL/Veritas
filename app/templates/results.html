@@ -11,26 +11,23 @@
         <div class="result-container">
             <h1 class="result-title">Результат проверки</h1>
             
-            <div class="result-status">
-                <p><strong>Статус:</strong> {{ status }}</p>
-            </div>
-
-            <div class="result-message">
-                <p><strong>Сообщение:</strong> {{ message }}</p>
-            </div>
-
-            {% if output %}
-            <div class="result-output">
-                <p><strong>Вывод программы:</strong></p>
-                <pre>{{ output }}</pre>
-            </div>
+            {% if validation_results %}
+                <h2>Ошибки проверки:</h2>
+                <ul>
+                    {% for error in validation_results %}
+                        <li><div class="result-message">{{ error }}</div></li>
+                    {% endfor %}
+                </ul>
             {% endif %}
 
-            {% if expected_output %}
-            <div class="result-expected">
-                <p><strong>Ожидаемый результат:</strong></p>
-                <pre>{{ expected_output }}</pre>
-            </div>
+            {% if test_results %}
+                <h2>Результаты тестов:</h2>
+                <ul>
+                    {% for result in test_results %}
+                        <li><div class="result-message">Тест {{ result.test_number }}: {{ result.status }} || {{ result.error }}</div></li>
+                    {% endfor %}
+                </ul>
+                <h3>Общий балл: {{ score }}</h3>
             {% endif %}
 
             <div class="back-button">

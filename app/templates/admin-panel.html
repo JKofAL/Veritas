@@ -69,7 +69,11 @@
                 const num = bar.getAttribute('data-rating');
 
                 // Рассчитываем ширину
-                const width = maxNum - (maxNum - num) - 15;
+                const width = maxNum - (maxNum - num) - (maxNum - (maxNum - num))/8;
+
+                if (width <= 0) {
+                    width = 5;
+                }
 
                 // Устанавливаем ширину через стиль
                 setTimeout(() => {
