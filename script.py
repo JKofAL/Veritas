@@ -34,19 +34,29 @@ with sqlite3.connect('VeritasDB.db') as conn:
         )
     '''
 
+    # create_table = """
+    #     CREATE TABLE IF NOT EXISTS verifyed_users (
+    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
+    #         login TEXT NOT NULL,
+    #         group_num TEXT NOT NULL,
+    #         password TEXT NOT NULL,
+    #         lab1 FLOAT DEFAULT 0.0,
+    #         lab2 FLOAT DEFAULT 0.0,
+    #         lab3 FLOAT DEFAULT 0.0,
+    #         lab4 FLOAT DEFAULT 0.0,
+    #         rating FLOAT DEFAULT 0.0
+    #     )
+    # """
+
     create_table = """
-        CREATE TABLE IF NOT EXISTS verifyed_users (
+        CREATE TABLE IF NOT EXISTS verifyed_admins (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             login TEXT NOT NULL,
-            group_num TEXT NOT NULL,
-            password TEXT NOT NULL,
-            lab1 FLOAT DEFAULT 0.0,
-            lab2 FLOAT DEFAULT 0.0,
-            lab3 FLOAT DEFAULT 0.0,
-            lab4 FLOAT DEFAULT 0.0,
-            rating FLOAT DEFAULT 0.0
+            group_nums TEXT NOT NULL,
+            password TEXT NOT NULL
         )
     """
+
 
     # create_table = """
     #     CREATE TABLE IF NOT EXISTS generated_keys (

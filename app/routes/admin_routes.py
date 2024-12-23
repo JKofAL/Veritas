@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, request, url_for, current_app
-from app.utils.db_utils import get_keys_n_users_info, add_keys, delete_uniq_key
+from app.utils.db_utils import get_keys_n_users_info, add_keys, delete_uniq_key, check_login_admin
 
 # обращаемся к приложению и создаём blueprint
 bp = Blueprint('admin_routes', __name__)
@@ -11,9 +11,11 @@ def admin_log():
         return redirect(url_for('admin_routes.admin_panel')) # перенаправляем в админскую панель
     else:
         if request.method == "POST":
-
-            if request.form.get('login') == current_app.config['ADMIN_LOGIN'] and request.form.get('password') == current_app.config['ADMIN_PASSWORD']:
+            dataForm = check_login_admin(request.form.get('login'), request.form.get('password'))
+            # ('login', 'group_num1,group_num2', 'password')
+            if dataForm:
                 session['logged_in_admin'] = True # сохраняем вход
+                session['group_nums'] = dataForm[1].split(',') # ['group_num1', 'group_num2']
                 return redirect("/admin-panel") # перенаправляем в админскую панель
             else:
                 return render_template("admin-log.html")     
@@ -27,7 +29,7 @@ def admin_panel():
     if session.get('logged_in_admin'): # если в куки есть подтверждённый вход в админку
         
         # находим в бд уникальные ключи, максимальный рейтинг среди студентов и вся информация о студентах
-        keys, max_rating, dataForm = get_keys_n_users_info()
+        keys, max_rating, dataForm = get_keys_n_users_info(session['group_nums'])
 
         # из списка ((id, key), (id, key)) делаем (key, key)
         keys = [i[1] for i in keys]

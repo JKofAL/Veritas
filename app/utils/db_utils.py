@@ -9,17 +9,21 @@ def get_users():
     return cur.fetchall()
 
 
-def get_keys_n_users_info():
+def get_keys_n_users_info(groups):
     with sqlite3.connect("VeritasDB.db") as conn:
         cur = conn.cursor()
 
         dataForm = []
-
-        task = """
-            SELECT login, group_num, rating FROM verifyed_users
-            """
-        cur.execute(task)
-        students_results = cur.fetchall()
+        students_results = []
+        for group in groups:
+            task = """
+                SELECT login, group_num, rating FROM verifyed_users WHERE group_num = ?
+                """
+            cur.execute(task, (group, ))
+            students_results_group = cur.fetchall()
+            if students_results_group:
+                for row in students_results_group:
+                    students_results.append(row)
         for elem in students_results:
             dataForm.append({"username": elem[0], "group_num": elem[1], "rating": elem[2]})
         task = " SELECT * FROM generated_keys "
@@ -146,6 +150,16 @@ def write_test_results(login, results):
 
             cur.execute(req_db, (*res, login))
             conn.commit()
+
+
+def check_login_admin(login, password):
+    with sqlite3.connect('VeritasDB.db') as conn:
+        cur = conn.cursor()
+        req_db = "SELECT login, group_nums, password FROM verifyed_admins WHERE login = ? AND password = ?"
+        cur.execute(req_db, (login, password, ))
+        user = cur.fetchone()
+
+    return user
 
 
 

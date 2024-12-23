@@ -91,7 +91,7 @@
 .results-table-div {
     background-color: #171717;
     width: 50vw;
-    height: 60vh;
+    height: 55vh;
     border-radius: 15px;
     margin: 2rem auto;
     padding: 5vh 5vw;
@@ -99,11 +99,15 @@
 
 .table-container {
     width: 100%;
-    height: 55vh;
+    height: 50vh;
     overflow-y: auto;
     overflow-x: hidden;
     display: block;
     margin: auto;
+    scrollbar-width: none;
+    border-radius: 15px;
+    border: 1px solid #333;
+    padding: 10px;
 }
 
 .table-container ul {
