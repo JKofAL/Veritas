@@ -24,7 +24,7 @@
                 <h2>Результаты тестов:</h2>
                 <ul>
                     {% for result in test_results %}
-                        <li><div class="result-message">Тест {{ result.test_number }}: {{ result.status }} || {{ result.error }}</div></li>
+                        <li><div class="result-message">Тест {{ result.test_number }}: {{ result.status }}</div></li>
                     {% endfor %}
                 </ul>
                 <h3>Общий балл: {{ score }}</h3>

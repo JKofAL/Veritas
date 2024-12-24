@@ -186,4 +186,5 @@ def upload_file():
     except Exception as e:
         for stroke in test_results:
             print(stroke)
-        return jsonify(result_stroke(status= "Ошибка", error= str(e)))
+        # return jsonify(result_stroke(status= "Ошибка", error= str(e)))
+        return redirect('/')
