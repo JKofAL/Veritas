@@ -80,9 +80,14 @@ with sqlite3.connect('VeritasDB.db') as conn:
     add_info = """
         INSERT INTO generated_keys (key) VALUES (?)
     """ # эта строка нужна для добавления инфы в таблицу
-    command = create_table
+    add_info = """
+        INSERT INTO verifyed_admins (login, group_nums, password) VALUES (?, ?, ?)
+    """ # эта строка нужна для добавления инфы в таблицу
     # command = add_info
-    cursor.execute(create_table)
+
+    # command = add_info
+    login_admin, group_nums, password = 'admin3', '231-231,231-234', 'admin3'
+    cursor.execute(add_info, (login_admin, group_nums, password, ))
     # cursor.execute(command, ("key",)) # добавляем инфу в таблицу
     # 1 1 1 1 0 0 0 - это из 7 лаб какие зач какие нзач, потом сам форматирую это
 

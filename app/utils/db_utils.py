@@ -9,33 +9,44 @@ def get_users():
     return cur.fetchall()
 
 
-def get_keys_n_users_info(groups):
+def get_keys_n_users_info(groups=None):
     with sqlite3.connect("VeritasDB.db") as conn:
         cur = conn.cursor()
 
         dataForm = []
         students_results = []
-        for group in groups:
+        if groups:
+            for group in groups:
+                task = """
+                    SELECT login, group_num, rating FROM verifyed_users WHERE group_num = ?
+                    """
+                cur.execute(task, (group, ))
+                students_results_group = cur.fetchall()
+                if students_results_group:
+                    for row in students_results_group:
+                        students_results.append(row)
+        else:
             task = """
-                SELECT login, group_num, rating FROM verifyed_users WHERE group_num = ?
+                SELECT login, group_num, rating FROM verifyed_users
                 """
-            cur.execute(task, (group, ))
+            cur.execute(task)
             students_results_group = cur.fetchall()
             if students_results_group:
                 for row in students_results_group:
                     students_results.append(row)
+        
         for elem in students_results:
             dataForm.append({"username": elem[0], "group_num": elem[1], "rating": elem[2]})
-        task = " SELECT * FROM generated_keys "
-        cur.execute(task)
-        keys = cur.fetchall()
-        if students_results:
-            dataForm = sorted(dataForm, key=lambda x: float(x["rating"]), reverse=True)
-            max_rating = max([float(rate["rating"]) for rate in dataForm])
-            dataForm = list(map(lambda x: {**x, "procent": round((float(x["rating"]) / max_rating)*100, 2)}, dataForm))
-        else:
-            max_rating=0
-            dataForm=[]
+            task = " SELECT * FROM generated_keys "
+            cur.execute(task)
+            keys = cur.fetchall()
+            if students_results:
+                dataForm = sorted(dataForm, key=lambda x: float(x["rating"]), reverse=True)
+                max_rating = max([float(rate["rating"]) for rate in dataForm])
+                dataForm = list(map(lambda x: {**x, "procent": round((float(x["rating"]) / max_rating)*100, 2)}, dataForm))
+            else:
+                max_rating=0
+                dataForm=[]
             
 
     return keys, max_rating, dataForm
