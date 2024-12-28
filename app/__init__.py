@@ -19,10 +19,6 @@ def create_app():
     app.config['TEST_INPUT'] = "test_input.txt"   # Файл с входными данными
     app.config['TEST_OUTPUT'] = "test_output.txt" # Файл с ожидаемым результатом
 
-    # СТАТИЧЕСКИЕ ПЕРЕМЕННЫЕ
-    app.config['ADMIN_LOGIN'] = 'admin' # логин админа
-    app.config['ADMIN_PASSWORD'] = 'admin' # пароль админа
-
     # импортируем маршруты
     from .routes import user_routes, admin_routes, file_routes
     app.register_blueprint(user_routes.bp) # маршруты юзеров

@@ -74,6 +74,9 @@
         <div class="button-upload-file">
             <button type="submit" class="button-upload-file-bttn" id="submit-btn" disabled>Отправить</button>
         </div>
+        {% if user == None %}
+            <p style="text-align: center;">Войдите в аккаунт</p>
+        {% endif %}
     </form>
 
     <script>
